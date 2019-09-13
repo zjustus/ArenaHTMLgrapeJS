@@ -80,7 +80,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
             ibEdit.ImageUrl = "~/Images/edit_no_shadow.gif";
 
             HtmlHolder.Controls.Clear();
-
+			HtmlEditHolder.Controls.Clear(); //added this
             try
             {
                 string HtmlContents = Server.HtmlDecode(htmlSource);
@@ -95,6 +95,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
                 HtmlHolder.Controls.Add(new LiteralControl(HtmlContents));
                 HtmlHolder.Visible = true;
+				HtmlEditHolder.Visible = false; //added this
             }
             catch (System.Exception ex)
             {
@@ -105,11 +106,26 @@ namespace ArenaWeb.WebControls.custom.Luminate
         private void ShowEdit()
         {
             ibEdit.Visible = false;
-            HtmlHolder.Visible = false;
+            HtmlHolder.Visible = false; //changed from false to true
             pnlEdit.Visible = true;
+			HtmlEditHolder.Controls.Clear();
+
+			try
+            {
+                string HtmlContents = Server.HtmlDecode(htmlSource);
+
+                HtmlEditHolder.Controls.Add(new LiteralControl(HtmlContents));
+                HtmlEditHolder.Visible = true;
+				HtmlHolder.Visible = false;
+            }
+            catch (System.Exception ex)
+            {
+                throw new ModuleException(CurrentPortalPage, CurrentModule, string.Format("Could not load the HTML from the '{0}' control.", CurrentModule.Title), ex);
+            }
 
 			//edditor here?
             //radEditor.Content = Server.HtmlDecode(htmlSource); //this calles the htmlSource code
+
 
         }
 
@@ -120,6 +136,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
             // set styles for rich textbox
 
             HtmlHolder.Visible = false;
+			HtmlEditHolder.Visible = true;
             ibEdit.Visible = false;
             pnlEdit.Visible = true;
         }
