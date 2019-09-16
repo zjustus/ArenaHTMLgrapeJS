@@ -75,9 +75,9 @@
           storageManager: {
               id: 'gjs-',             // Prefix identifier that will be used inside storing and loading
               type: 'remote',          // Type of the storage
-              autosave: false,         // Store data automatically
+              autosave: true,         // Store data automatically
               autoload: true,         // Autoload stored data on init
-              //stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
+              stepsBeforeSave: 10,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
               storeComponents: true,  // Enable/Disable storing of components in JSON format
               storeStyles: true,      // Enable/Disable storing of rules in JSON format
               storeHtml: true,        // Enable/Disable storing of components as HTML string
@@ -89,6 +89,11 @@
         });
     </script>
 
-    <asp:Button ID="btnSave" runat="server" CssClass="smallText" OnClick="btnSave_Click" Text="Save" CausesValidation="false" />
-    <asp:Button ID="btnCancel" runat="server" CssClass="smallText" OnClick="btnCancel_Click" Text="Cancel"  CausesValidation="false"/>
+    <button ID="btnSave" type='button'>Save</button>
+    <asp:Button ID="btnFinish" runat="server" CssClass="smallText" OnClick="btnFinish_Click" Text="Finish"  CausesValidation="false"/>
+    <script type="text/javascript">
+        $("#btnSave").click(function(){
+            editor.store();
+        });
+    </script>
 </asp:Panel>

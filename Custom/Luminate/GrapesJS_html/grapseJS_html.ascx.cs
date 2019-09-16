@@ -1,6 +1,8 @@
 namespace ArenaWeb.WebControls.custom.Luminate
 {
 	using System;
+	using System.IO;
+	using System.Web;
 	using System.Web.UI;
 
 	using Arena.Content;
@@ -57,6 +59,9 @@ namespace ArenaWeb.WebControls.custom.Luminate
         [BooleanSetting("Enable Editing", "Flag indicating if editor pencil should be displayed, which allows in place editing.", false, true)]
         public string EnableEditingSetting { get { return Setting("EnableEditing", "true", false); } }
 
+		[TextSetting("grapesJS Data", "Data Param for GrapeJS do not edit", false)]
+        public string grapsejsData { get { return Setting("grapsejsData", string.Empty, false); } }
+
 
 		#endregion
 
@@ -72,11 +77,28 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
 			if (Request.IsAuthenticated && editEnabled) {
 				if(Request.HttpMethod.ToString() == "POST" && Request["moduleID"] == moduleID.ToString()){ //Save the data
-					string json = "{\"name\":\"Joe\"}";
+					string html = "";
+
+					if(!string.IsNullOrEmpty(Request.Form["gjs-html"])){
+						html = Request.Form["gjs-html"];
+					}
+
+					string json = "weeee";
 					Response.Clear();
 					Response.ContentType = "application/json; charset=utf-8";
+
+					var bodyStream = new StreamReader(HttpContext.Current.Request.InputStream);
+    				bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
+    				var bodyText = bodyStream.ReadToEnd();
+					json += bodyText;
+
+
 					Response.Write(json);
 					Response.End();
+					//CurrentModule.Details = Server.HtmlEncode(radEditor.Content); //this part saves the HTML to
+					//CurrentModule.Save(CurrentUser.Identity.Name);
+
+
 				}
 				else if(Request.HttpMethod.ToString() == "GET" && Request["moduleID"] == moduleID.ToString()){ //Load the data
 					string json = "{\"name\":\"Joe\"}";
@@ -86,9 +108,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 					Response.End();
 				}
 			}
-			else{
-	            ShowView();
-			}
+	        ShowView();
         }
 
         private void ShowView() //no change
@@ -143,11 +163,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
             {
                 throw new ModuleException(CurrentPortalPage, CurrentModule, string.Format("Could not load the HTML from the '{0}' control.", CurrentModule.Title), ex);
             }
-
-			//edditor here?
-            //radEditor.Content = Server.HtmlDecode(htmlSource); //this calles the htmlSource code
-
-
         }
 
         private void ibEdit_Click(object sender, System.Web.UI.ImageClickEventArgs e)
@@ -162,27 +177,10 @@ namespace ArenaWeb.WebControls.custom.Luminate
             pnlEdit.Visible = true;
         }
 
-        protected void lbCancel_Click(object sender, EventArgs e)
-        { }
-        protected void lbUpdate_Click(object sender, EventArgs e)
-        { }
-
-        protected void btnCancel_Click(object sender, System.EventArgs e)
+        protected void btnFinish_Click(object sender, System.EventArgs e)
         {
             ShowView();
-        }
-
-        protected void btnSave_Click(object sender, System.EventArgs e)
-        {
-
-			/*
-			CurrentModule.Details = Server.HtmlEncode(radEditor.Content); //this part saves the HTML to
-			CurrentModule.Save(CurrentUser.Identity.Name);
-			htmlSource = CurrentModule.Details.Trim();
-			*/
-            ShowView();
-
-            try
+			try
             {
                 if (NotifySetting != string.Empty)
                 {
