@@ -22,6 +22,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
         private string flashPaths = string.Empty;
         private string mediaPaths = string.Empty;
         private string documentPaths = string.Empty;
+		public int moduleID = -1;
 
         #region Module Settings
 
@@ -67,7 +68,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
             editEnabled = CurrentModule.Permissions.Allowed(OperationType.Edit, CurrentUser) && EnableEditingSetting.Equals("true");
 
             htmlSource = CurrentModule.Details.Trim();
-
+			moduleID = CurrentModule.ModuleInstanceID;
             ShowView();
         }
 
@@ -109,6 +110,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
             HtmlHolder.Visible = false; //changed from false to true
             pnlEdit.Visible = true;
 			HtmlEditHolder.Controls.Clear();
+
 
 			try
             {
