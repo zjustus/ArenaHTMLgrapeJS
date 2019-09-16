@@ -109,7 +109,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 	        ShowView();
         }
 
-        private void ShowView() //no change
+        private void ShowView()
         {
             pnlEditImage.Visible = editEnabled;
             ibEdit.Visible = editEnabled;
@@ -124,7 +124,8 @@ namespace ArenaWeb.WebControls.custom.Luminate
 				if(!string.IsNullOrEmpty(htmlSource)){
 					//convert from encode to decode then parses to a json object
 					var jDetails = JObject.Parse(Server.HtmlDecode(htmlSource));
-					HtmlContents = (string)jDetails.GetValue("gjs-html");
+					HtmlContents = string.Format("<Style>{0}</style>", (string)jDetails.GetValue("gjs-css"));
+					HtmlContents += (string)jDetails.GetValue("gjs-html");
 				}
 				else HtmlContents = "";
 
