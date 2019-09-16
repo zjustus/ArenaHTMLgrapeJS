@@ -26,7 +26,7 @@
         }
     </style>
     <div id="gjs">
-        <asp:PlaceHolder id="HtmlEditHolder" runat="server"></asp:PlaceHolder>
+        
     </div>
     <div id="blocks"></div>
     <script type="text/javascript">
