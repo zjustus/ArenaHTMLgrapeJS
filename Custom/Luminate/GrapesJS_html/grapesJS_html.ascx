@@ -1,6 +1,5 @@
 <%@ Control Language="c#" Inherits="ArenaWeb.WebControls.custom.Luminate.grapesJS_html" CodeFile="grapseJS_html.ascx.cs" %>
 <asp:Panel ID="pnlEditImage" Runat="server" CssClass="editImage" Visible="False"><asp:ImageButton ID="ibEdit" ImageUrl="~Images/edit.gif" Runat="server" CausesValidation="False"></asp:ImageButton></asp:Panel>
-<%= moduleID %>
 <asp:PlaceHolder id="HtmlHolder" runat="server"></asp:PlaceHolder>
 <asp:Panel ID="pnlEdit" Runat="server" CssClass="editWrap" Visible="False">
     <Arena:KeepAlive ID="keepMeAlive" runat="server" />
@@ -75,14 +74,17 @@
           },
           storageManager: {
               id: 'gjs-',             // Prefix identifier that will be used inside storing and loading
-              type: 'local',          // Type of the storage
+              type: 'remote',          // Type of the storage
               autosave: false,         // Store data automatically
               autoload: true,         // Autoload stored data on init
-              stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
+              //stepsBeforeSave: 1,     // If autosave enabled, indicates how many changes are necessary before store method is triggered
               storeComponents: true,  // Enable/Disable storing of components in JSON format
               storeStyles: true,      // Enable/Disable storing of rules in JSON format
               storeHtml: true,        // Enable/Disable storing of components as HTML string
               storeCss: true,         // Enable/Disable storing of rules as CSS string
+              urlStore: 'https://portal.luminate.church/default.aspx?page=<%= Request["page"] %>&moduleID=<%= moduleID %>',
+              urlLoad: 'https://portal.luminate.church/default.aspx?page=<%= Request["page"] %>&moduleID=<%= moduleID %>'
+
             }
         });
     </script>

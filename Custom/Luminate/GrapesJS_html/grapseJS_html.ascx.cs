@@ -65,11 +65,30 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            editEnabled = CurrentModule.Permissions.Allowed(OperationType.Edit, CurrentUser) && EnableEditingSetting.Equals("true");
+			editEnabled = CurrentModule.Permissions.Allowed(OperationType.Edit, CurrentUser) && EnableEditingSetting.Equals("true");
 
-            htmlSource = CurrentModule.Details.Trim();
+			htmlSource = CurrentModule.Details.Trim();
 			moduleID = CurrentModule.ModuleInstanceID;
-            ShowView();
+
+			if (Request.IsAuthenticated && editEnabled) {
+				if(Request.HttpMethod.ToString() == "POST" && Request["moduleID"] == moduleID.ToString()){ //Save the data
+					string json = "{\"name\":\"Joe\"}";
+					Response.Clear();
+					Response.ContentType = "application/json; charset=utf-8";
+					Response.Write(json);
+					Response.End();
+				}
+				else if(Request.HttpMethod.ToString() == "GET" && Request["moduleID"] == moduleID.ToString()){ //Load the data
+					string json = "{\"name\":\"Joe\"}";
+					Response.Clear();
+					Response.ContentType = "application/json; charset=utf-8";
+					Response.Write(json);
+					Response.End();
+				}
+			}
+			else{
+	            ShowView();
+			}
         }
 
         private void ShowView() //no change
