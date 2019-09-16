@@ -4,6 +4,8 @@ namespace ArenaWeb.WebControls.custom.Luminate
 	using System.IO;
 	using System.Web;
 	using System.Web.UI;
+	using System.Web.Script;
+	using Newtonsoft.Json.Linq;
 
 	using Arena.Content;
 	using Arena.Core;
@@ -77,26 +79,26 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
 			if (Request.IsAuthenticated && editEnabled) {
 				if(Request.HttpMethod.ToString() == "POST" && Request["moduleID"] == moduleID.ToString()){ //Save the data
-					string html = "";
-
-					if(!string.IsNullOrEmpty(Request.Form["gjs-html"])){
-						html = Request.Form["gjs-html"];
-					}
-
-					string json = "weeee";
 					Response.Clear();
 					Response.ContentType = "application/json; charset=utf-8";
 
+					//grabes the JSON as a string and converts to JSON object
 					var bodyStream = new StreamReader(HttpContext.Current.Request.InputStream);
     				bodyStream.BaseStream.Seek(0, SeekOrigin.Begin);
     				var bodyText = bodyStream.ReadToEnd();
-					json += bodyText;
+					var json = JObject.Parse(bodyText);
+					string jsonString = bodyText;
 
+					string jHtml = (string)json.GetValue("gjs-html");
 
-					Response.Write(json);
+					if(!string.IsNullOrEmpty(jsonString)){
+						CurrentModule.Details = Server.HtmlEncode(jsonString);
+						CurrentModule.Save(CurrentUser.Identity.Name);
+					}
+
+					Response.Write("Saved");
 					Response.End();
-					//CurrentModule.Details = Server.HtmlEncode(radEditor.Content); //this part saves the HTML to
-					//CurrentModule.Save(CurrentUser.Identity.Name);
+
 
 
 				}
@@ -123,7 +125,13 @@ namespace ArenaWeb.WebControls.custom.Luminate
 			HtmlEditHolder.Controls.Clear(); //added this
             try
             {
-                string HtmlContents = Server.HtmlDecode(htmlSource);
+				string HtmlContents = string.Empty;
+				if(!string.IsNullOrEmpty(htmlSource)){
+					//convert from encode to decode then parses to a json object
+					var jDetails = JObject.Parse(Server.HtmlDecode(htmlSource));
+					HtmlContents = (string)jDetails.GetValue("gjs-html");
+				}
+				else HtmlContents = "";
 
                 if (Boolean.Parse(EvaluateQueryStringSetting))
                 {
@@ -153,7 +161,13 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
 			try
             {
-                string HtmlContents = Server.HtmlDecode(htmlSource);
+				string HtmlContents = string.Empty;
+				if(!string.IsNullOrEmpty(htmlSource)){
+					//convert from encode to decode then parses to a json object
+					var jDetails = JObject.Parse(Server.HtmlDecode(htmlSource));
+					HtmlContents = (string)jDetails.GetValue("gjs-html");
+				}
+				else HtmlContents = "";
 
                 HtmlEditHolder.Controls.Add(new LiteralControl(HtmlContents));
                 HtmlEditHolder.Visible = true;
