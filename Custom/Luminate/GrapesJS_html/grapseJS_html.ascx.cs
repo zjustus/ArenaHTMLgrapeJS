@@ -61,10 +61,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
         [BooleanSetting("Enable Editing", "Flag indicating if editor pencil should be displayed, which allows in place editing.", false, true)]
         public string EnableEditingSetting { get { return Setting("EnableEditing", "true", false); } }
 
-		[TextSetting("grapesJS Data", "Data Param for GrapeJS do not edit", false)]
-        public string grapsejsData { get { return Setting("grapsejsData", string.Empty, false); } }
-
-
 		#endregion
 
 		private bool editEnabled = false;
@@ -122,7 +118,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
             ibEdit.ImageUrl = "~/Images/edit_no_shadow.gif";
 
             HtmlHolder.Controls.Clear();
-			//HtmlEditHolder.Controls.Clear(); //added this
             try
             {
 				string HtmlContents = string.Empty;
@@ -143,7 +138,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
                 HtmlHolder.Controls.Add(new LiteralControl(HtmlContents));
                 HtmlHolder.Visible = true;
-				//HtmlEditHolder.Visible = false; //added this
+
             }
             catch (System.Exception ex)
             {
@@ -156,8 +151,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
             ibEdit.Visible = false;
             HtmlHolder.Visible = false; //changed from false to true
             pnlEdit.Visible = true;
-			//HtmlEditHolder.Controls.Clear();
-
 
 			try
             {
@@ -169,8 +162,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
 				}
 				else HtmlContents = "";
 
-                //HtmlEditHolder.Controls.Add(new LiteralControl(HtmlContents));
-                //HtmlEditHolder.Visible = true;
 				HtmlHolder.Visible = false;
             }
             catch (System.Exception ex)
@@ -184,9 +175,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
             ShowEdit();
 
             // set styles for rich textbox
-
             HtmlHolder.Visible = false;
-			//HtmlEditHolder.Visible = true;
             ibEdit.Visible = false;
             pnlEdit.Visible = true;
         }
