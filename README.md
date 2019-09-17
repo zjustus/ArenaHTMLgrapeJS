@@ -10,3 +10,5 @@
 
 <h1>Special Thanks to GrapesJS</h1>
 <p>This is by far the best web builder ive ever seen because it can work with every CMS system, or even just static webpages. It is at the verry core of this project and with out it, there is absolutly no way this project could have happened</p>
+<p><a href="https://grapesjs.com">GrapesJS Website</a></p>
+<p><a href="https://github.com/artf/grapesjs">GrapesJS Github</a></p>
