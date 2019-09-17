@@ -1,5 +1,6 @@
 <h1>ArenaHTMLgrapeJS</h1>
 <p>a better html editor for Shelby Arena using GrapesJS at its core</p>
+<p>This is currently in heavy development and not quite ready to be used publicly, it should be ready soon!</p>
 <p>The modules ive pre coded into this edditor are designed to look good with <a href="https://github.com/zjustus/Arena-Templates/tree/master/MembersResponsive/Dramatic">this Arena Theme</a>, but they will work with any page on arena</p>
 
 <h1>Instalation</h1>
