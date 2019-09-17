@@ -14,10 +14,9 @@ namespace ArenaWeb.WebControls.custom.Luminate
 	using Arena.Portal;
 	using Arena.Security;
 	using Arena.Utility;
-	//using Telerik.Web.UI; //removed
 
 	/// <summary>
-	///		Summary description for HtmlText.
+	///		This module is an HTML edditor for Shelby Arena. It uses GrapesJS to power it!
 	/// </summary>
 	//public abstract class HtmlText : System.Web.UI.UserControl
 	public partial class grapesJS_html : PortalControl
@@ -61,6 +60,12 @@ namespace ArenaWeb.WebControls.custom.Luminate
         [BooleanSetting("Enable Editing", "Flag indicating if editor pencil should be displayed, which allows in place editing.", false, true)]
         public string EnableEditingSetting { get { return Setting("EnableEditing", "true", false); } }
 
+		[BooleanSetting("Enable Auto Save", "Flag indicating if GrapeJS should auto save the webpage.", false, true)]
+        public string AutoSaveSetting { get { return Setting("AutoSaveSetting", "true", false); } }
+
+		[NumericSetting("Steps Before Saving", "Optional value for the steps before auto save.  Default is 1", false)]
+        public string saveStepsSetting { get { return Setting("saveStepsSetting", "1", false); } }
+
 		#endregion
 
 		private bool editEnabled = false;
@@ -69,7 +74,6 @@ namespace ArenaWeb.WebControls.custom.Luminate
         protected void Page_Load(object sender, System.EventArgs e)
         {
 			editEnabled = CurrentModule.Permissions.Allowed(OperationType.Edit, CurrentUser) && EnableEditingSetting.Equals("true");
-
 			htmlSource = CurrentModule.Details.Trim();
 			moduleID = CurrentModule.ModuleInstanceID;
 
