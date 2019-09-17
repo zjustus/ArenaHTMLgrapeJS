@@ -349,8 +349,8 @@
 
     </script>
 
-    <button ID="btnSave" type='button'>Save</button>
-    <asp:Button ID="btnFinish" runat="server" CssClass="smallText" OnClick="btnFinish_Click" Text="Finish"  CausesValidation="false"/>
+    <button ID="btnSave" class="btn btn-primary" type='button'>Save</button>
+    <asp:Button ID="btnFinish" runat="server" CssClass="btn btn-primary" OnClick="btnFinish_Click" Text="Finish"  CausesValidation="false"/>
     <script type="text/javascript">
         $("#btnSave").click(function(){
             editor.store();
