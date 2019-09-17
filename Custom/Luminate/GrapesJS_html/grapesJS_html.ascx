@@ -66,8 +66,8 @@
 
     </style>
     <div class="panel__top"> <!-- top pannel -->
-        <div class="panel__basic-actions"></div>
         <div class="panel__devices"></div>
+        <div class="panel__basic-actions"></div>
         <div class="panel__switcher"></div>
     </div>
     <div class="editor-row">
@@ -75,8 +75,8 @@
         <div id="gjs">...</div>
       </div>
       <div class="panel__right"> <!-- right pannel -->
+      <div class="styles-container"></div>
         <div class="layers-container"></div>
-        <div class="styles-container"></div>
         <div class="traits-container"></div>
       </div>
     </div>
@@ -128,6 +128,11 @@
                 name: 'Mobile',
                 width: '320px', // this value will be used on canvas width
                 widthMedia: '480px', // this value will be used in CSS @media
+            },
+            {
+                name: 'Tablet',
+                width: '500px',
+                wudthMedia: '550px',
             }]
           },
           panels: {
@@ -138,14 +143,14 @@
                 buttons: [{
                     id: 'show-layers',
                     active: true,
-                    label: 'Layers',
+                    label: '<i class="fa fa-object-group" aria-hidden="true"></i>',
                     command: 'show-layers',
                     // Once activated disable the possibility to turn it off
                     togglable: false,
                   }, {
                     id: 'show-style',
                     active: true,
-                    label: 'Styles',
+                    label: '<i class="fa fa-paint-brush" aria-hidden="true"></i>',
                     command: 'show-styles',
                     togglable: false,
                 }, {
@@ -177,16 +182,24 @@
                 el: '.panel__devices',
                 buttons: [{
                     id: 'device-desktop',
-                    label: 'D',
+                    label: '<i class="fa fa-desktop" aria-hidden="true"></i>',
                     command: 'set-device-desktop',
                     active: true,
                     togglable: false,
-                  }, {
+                  }
+                  ,{
+                      id: 'device-tablet',
+                      label: '<i class="fa fa-tablet" aria-hidden="true"></i>',
+                      command: 'set-device-tablet',
+                      togglable: false,
+                  }
+                  , {
                     id: 'device-mobile',
-                    label: 'M',
+                    label: '<i class="fa fa-mobile" aria-hidden="true"></i>',
                     command: 'set-device-mobile',
                     togglable: false,
-                }],
+                  }
+                 ],
             }]
             },
             traitManager: {
@@ -263,12 +276,12 @@
               id: 'visibility',
               active: true, // active by default
               className: 'btn-toggle-borders',
-              label: '<u>B</u>',
+              label: '<i class="fa fa-object-ungroup" aria-hidden="true"></i>',
               command: 'sw-visibility', // Built-in command
             }, {
               id: 'export',
               className: 'btn-open-export',
-              label: 'Exp',
+              label: '<i class="fa fa-code" aria-hidden="true"></i>',
               command: 'export-template',
               context: 'export-template', // For grouping context of buttons from the same panel
             }, {
@@ -326,6 +339,9 @@
         });
         editor.Commands.add('set-device-desktop', {
           run: editor => editor.setDevice('Desktop')
+        });
+        editor.Commands.add('set-device-tablet', {
+          run: editor => editor.setDevice('Tablet')
         });
         editor.Commands.add('set-device-mobile', {
           run: editor => editor.setDevice('Mobile')
