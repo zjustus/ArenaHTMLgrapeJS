@@ -286,7 +286,22 @@
               },
               traitManager: {
                   appendTo: '.styles-container',
-                  },
+              },
+              /*
+              AssetManager:{
+                  assets:[
+                    {
+                        type: 'image',
+                        src: '',
+                        height: 250,
+                        width: 250,
+                    }
+                  ],
+                  //upload: '/upload endpoint', //code for later, this is where the assets upload to
+                  //params: {}, //paramaters to pass in the upload
+                  upload: 0,
+              },
+              */
           storageManager: {
               id: 'gjs-',                   // Prefix identifier that will be used inside storing and loading
               type: 'remote',               // Type of the storage
