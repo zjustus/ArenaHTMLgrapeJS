@@ -3,7 +3,6 @@
 <asp:PlaceHolder id="HtmlHolder" runat="server"></asp:PlaceHolder>
 <asp:Panel ID="pnlEdit" Runat="server" CssClass="editWrap" Visible="False">
     <Arena:KeepAlive ID="keepMeAlive" runat="server" />
-    <!-- GrapesJS here? -->
     <link rel="stylesheet" href="//unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="//unpkg.com/grapesjs"></script>
     <style media="screen">
@@ -75,12 +74,11 @@
         <div id="gjs">...</div>
       </div>
       <div class="panel__right"> <!-- right pannel -->
+      <div class="blocks-container" id="blocks"></div>
       <div class="styles-container"></div>
         <div class="layers-container"></div>
-        <div class="traits-container"></div>
       </div>
     </div>
-    <div id="blocks"></div> <!-- bottom pannel -->
     <script type="text/javascript">
         const editor = grapesjs.init({
           container: '#gjs',
@@ -92,14 +90,54 @@
             appendTo: '#blocks',
             blocks: [
               {
-                id: 'section', // id is mandatory
-                label: '<b>Section</b>', // You can use HTML/SVG inside labels
+                id: 'column1', // id is mandatory
+                label: '<b>1 Column</b>', // You can use HTML/SVG inside labels
                 attributes: { class:'gjs-block-section' },
-                content: `<section>
-                  <h1>This is a simple title</h1>
-                  <div>This is just a Lorem text: Lorem ipsum dolor sit amet</div>
-                </section>`,
-              }, {
+                content:'<div class="container-fluid" data-gjs-custom-name="Container">'+
+                        '<div class="row" data-gjs-custom-name="Row">'+
+                            '<div class="col-12" data-gjs-custom-name="Column">'+
+                                '<p>this is the column</p>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                ,
+              },
+              {
+                id: 'column2', // id is mandatory
+                label: '<b>2 Columns</b>', // You can use HTML/SVG inside labels
+                attributes: { class:'gjs-block-section' },
+                content: '<div class="container-fluid" data-gjs-custom-name="Container">'+
+                        '<div class="row" data-gjs-custom-name="Row">'+
+                            '<div class="col-6">'+
+                                '<p>this is the COlumn</p>'+
+                            '</div>'+
+                            '<div class="col-6">'+
+                                '<p>this is second Column</p>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                ,
+              },
+              {
+                id: 'column3', // id is mandatory
+                label: '<b>3 Columns</b>', // You can use HTML/SVG inside labels
+                attributes: { class:'gjs-block-section' },
+                content: '<div class="container-fluid" data-gjs-custom-name="Container">'+
+                        '<div class="row" data-gjs-custom-name="Row">'+
+                            '<div class="col-4" data-gjs-custom-name="Column">'+
+                                '<p>this is the COlumn</p>'+
+                            '</div>'+
+                            '<div class="col-4" data-gjs-custom-name="Column">'+
+                                '<p>this is second column</p>'+
+                            '</div>'+
+                            '<div class="col-4" data-gjs-custom-name="Column">'+
+                                '<p>this is third column</p>'+
+                            '</div>'+
+                        '</div>'+
+                    '</div>'
+                ,
+              },
+              {
                 id: 'text',
                 label: 'Text',
                 content: '<div data-gjs-type="text">Insert your text here</div>',
@@ -154,10 +192,10 @@
                     command: 'show-styles',
                     togglable: false,
                 }, {
-                    id: 'show-traits',
+                    id: 'show-blocks',
                     active: true,
-                    label: 'Traits',
-                    command: 'show-traits',
+                    label: '<i class="fa fa-th-large" aria-hidden="true"></i>',
+                    command: 'show-blocks',
                     togglable: false,
                 }],
             }
@@ -201,9 +239,6 @@
                   }
                  ],
             }]
-            },
-            traitManager: {
-                appendTo: '.traits-container',
             },
             selectorManager: {
                 appendTo: '.styles-container'
@@ -249,6 +284,9 @@
                     ]
                   }]
               },
+              traitManager: {
+                  appendTo: '.styles-container',
+                  },
           storageManager: {
               id: 'gjs-',                   // Prefix identifier that will be used inside storing and loading
               type: 'remote',               // Type of the storage
@@ -262,7 +300,7 @@
               urlStore: 'default.aspx?page=<%= Request["page"] %>&moduleID=<%= moduleID %>',
               urlLoad: 'default.aspx?page=<%= Request["page"] %>&moduleID=<%= moduleID %>'
 
-            }
+            },
         });
         editor.Panels.addPanel({
           id: 'panel-top',
@@ -325,10 +363,10 @@
             smEl.style.display = 'none';
           },
         });
-        editor.Commands.add('show-traits', {
+        editor.Commands.add('show-blocks', {
           getTraitsEl(editor) {
             const row = editor.getContainer().closest('.editor-row');
-            return row.querySelector('.traits-container');
+            return row.querySelector('.blocks-container');
           },
           run(editor, sender) {
             this.getTraitsEl(editor).style.display = '';
