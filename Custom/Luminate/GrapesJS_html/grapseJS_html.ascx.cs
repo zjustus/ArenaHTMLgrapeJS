@@ -5,6 +5,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 	using System.Web;
 	using System.Web.UI;
 	using System.Web.Script;
+	using System.Collections.Generic;
 	using Newtonsoft.Json.Linq;
 
 	using Arena.Content;
@@ -26,6 +27,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
         private string mediaPaths = string.Empty;
         private string documentPaths = string.Empty;
 		public int moduleID = -1;
+		public string[] ImageArray;
 
         #region Module Settings
 
@@ -71,11 +73,15 @@ namespace ArenaWeb.WebControls.custom.Luminate
 		private bool editEnabled = false;
         private string htmlSource = string.Empty;
 
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
 			editEnabled = CurrentModule.Permissions.Allowed(OperationType.Edit, CurrentUser) && EnableEditingSetting.Equals("true");
 			htmlSource = CurrentModule.Details.Trim();
 			moduleID = CurrentModule.ModuleInstanceID;
+
+			//needs to set file arrays here
+			ImageArray = filesInPath(ImagesPathsSetting, "Content/HtmlImages/Public/Images/General/");
 
 			if (Request.IsAuthenticated && editEnabled) {
 				if(Request.HttpMethod.ToString() == "POST" && Request["moduleID"] == moduleID.ToString()){ //Save the data
@@ -174,6 +180,26 @@ namespace ArenaWeb.WebControls.custom.Luminate
                 throw new ModuleException(CurrentPortalPage, CurrentModule, string.Format("Could not load the HTML from the '{0}' control.", CurrentModule.Title), ex);
             }
         }
+		// this chunk grabs
+		private string[] filesInPath(string FilePathSetting, string FilePathDefault){
+			List<string> FileList = new List<string>();
+			string[] fileArray;
+			string ArenaPath = "/Program Files (x86)/Arena ChMS/Arena/";
+			string FilePath = ArenaPath;
+			if(!string.IsNullOrEmpty(FilePathSetting)){ FilePath += FilePathSetting; }
+			else{ FilePath += FilePathDefault; }
+			try{
+				var FileDirectory = Directory.EnumerateFiles(FilePath);
+				foreach(string file in FileDirectory){
+					FileList.Add(file.Replace(ArenaPath, "/"));
+				}
+				fileArray = FileList.ToArray();
+			}
+			catch(System.Exception ex){
+				throw new ModuleException(CurrentPortalPage, CurrentModule, string.Format("Could not load the HTML from the '{0}' control.", CurrentModule.Title), ex);
+			}
+			return fileArray;
+		}
 
         private void ibEdit_Click(object sender, System.Web.UI.ImageClickEventArgs e)
         {

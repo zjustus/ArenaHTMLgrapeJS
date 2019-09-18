@@ -1,5 +1,6 @@
 <%@ Control Language="c#" Inherits="ArenaWeb.WebControls.custom.Luminate.grapesJS_html" CodeFile="grapseJS_html.ascx.cs" %>
-<asp:Panel ID="pnlEditImage" Runat="server" CssClass="editImage" Visible="False"><asp:ImageButton ID="ibEdit" ImageUrl="~Images/edit.gif" Runat="server" CausesValidation="False"></asp:ImageButton></asp:Panel>
+<asp:Panel ID="pnlEditImage" Runat="server" CssClass="editImage" Visible="False"><asp:ImageButton ID="ibEdit" ImageUrl="~Images/edit.gif" Runat="server" CausesValidation="False"></asp:ImageButton>
+</asp:Panel>
 <asp:PlaceHolder id="HtmlHolder" runat="server"></asp:PlaceHolder>
 <asp:Panel ID="pnlEdit" Runat="server" CssClass="editWrap" Visible="False">
     <Arena:KeepAlive ID="keepMeAlive" runat="server" />
@@ -287,21 +288,23 @@
               traitManager: {
                   appendTo: '.styles-container',
               },
-              /*
+
               AssetManager:{
                   assets:[
-                    {
-                        type: 'image',
-                        src: '',
-                        height: 250,
-                        width: 250,
-                    }
+                  <% foreach(string ImageURL in ImageArray){ %>
+                      {
+                          type: 'image',
+                          src: "<%= ImageURL %>",
+                          height: 250,
+                          width: 250,
+                      },
+                  <% } %>
                   ],
                   //upload: '/upload endpoint', //code for later, this is where the assets upload to
                   //params: {}, //paramaters to pass in the upload
                   upload: 0,
               },
-              */
+
           storageManager: {
               id: 'gjs-',                   // Prefix identifier that will be used inside storing and loading
               type: 'remote',               // Type of the storage
