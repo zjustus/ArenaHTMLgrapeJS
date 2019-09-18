@@ -292,12 +292,7 @@
               AssetManager:{
                   assets:[
                   <% foreach(string ImageURL in ImageArray){ %>
-                      {
-                          type: 'image',
-                          src: "<%= ImageURL %>",
-                          height: 250,
-                          width: 250,
-                      },
+                      "<%= ImageURL %>",
                   <% } %>
                   ],
                   //upload: '/upload endpoint', //code for later, this is where the assets upload to
