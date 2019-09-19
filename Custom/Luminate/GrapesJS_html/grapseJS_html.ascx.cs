@@ -194,7 +194,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 			try{
 				var FileDirectory = Directory.EnumerateFiles(FilePath);
 				foreach(string file in FileDirectory){
-					FileList.Add(file.Replace(ArenaPath, CurrentPortal.Domain));
+					FileList.Add(file.Replace(ArenaPath, ""));
 				}
 				fileArray = FileList.ToArray();
 			}

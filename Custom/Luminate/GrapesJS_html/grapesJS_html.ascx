@@ -289,7 +289,6 @@
                   //params: {}, //paramaters to pass in the upload
                   upload: 0,
               },
-
           storageManager: {
               id: 'gjs-',                   // Prefix identifier that will be used inside storing and loading
               type: 'remote',               // Type of the storage
@@ -315,7 +314,7 @@
           buttons: [
             {
               id: 'visibility',
-              active: true, // active by default
+              //active: true, // active by default
               className: 'btn-toggle-borders',
               label: '<i class="fa fa-object-ungroup" aria-hidden="true"></i>',
               command: 'sw-visibility', // Built-in command
