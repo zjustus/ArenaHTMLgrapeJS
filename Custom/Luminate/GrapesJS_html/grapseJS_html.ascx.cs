@@ -191,7 +191,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
 			try{
 				var FileDirectory = Directory.EnumerateFiles(FilePath);
 				foreach(string file in FileDirectory){
-					FileList.Add(file.Replace(ArenaPath, "https://portal.luminate.church/"));
+					FileList.Add(file.Replace(ArenaPath, CurrentPortal.Domain));
 				}
 				fileArray = FileList.ToArray();
 			}
