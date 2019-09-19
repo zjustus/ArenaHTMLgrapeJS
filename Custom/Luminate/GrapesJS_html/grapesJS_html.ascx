@@ -17,7 +17,7 @@
         .gjs-cv-canvas {
           top: 0;
           width: 100%;
-          height: 100%;
+          height: 80vh;
         }
 
         .gjs-block {
@@ -43,7 +43,7 @@
           justify-content: flex-start;
           align-items: stretch;
           flex-wrap: nowrap;
-          height: 300px;
+          height: 80vh;
         }
 
         .editor-canvas {
@@ -84,7 +84,7 @@
         const editor = grapesjs.init({
           container: '#gjs',
           fromElement: true,
-          height: '500px',
+          height: '80vh',
           width: 'auto',
           storageManager: true,
           blockManager: {
