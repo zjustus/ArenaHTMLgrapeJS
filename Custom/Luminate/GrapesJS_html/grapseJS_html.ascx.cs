@@ -22,12 +22,12 @@ namespace ArenaWeb.WebControls.custom.Luminate
 	//public abstract class HtmlText : System.Web.UI.UserControl
 	public partial class grapesJS_html : PortalControl
     {
-        private string editorScheme = string.Empty;
-        private string flashPaths = string.Empty;
-        private string mediaPaths = string.Empty;
-        private string documentPaths = string.Empty;
 		public int moduleID = -1;
 		public string[] ImageArray;
+		public string[] FlashArray;
+		public string[] MediaAray;
+		public string[] DocumentArray;
+
 
         #region Module Settings
 
@@ -82,6 +82,9 @@ namespace ArenaWeb.WebControls.custom.Luminate
 
 			//needs to set file arrays here
 			ImageArray = filesInPath(ImagesPathsSetting, "Content/HtmlImages/Public/Images/General/");
+			FlashArray = filesInPath(FlashPathsSetting, "Content/HtmlImages/Public/Flash/General");
+			MediaAray = filesInPath(MediaPathsSetting, "Content/HtmlImages/Public/Media/General/");
+			DocumentArray = filesInPath(DocumentPathsSetting, "Content/HtmlImages/Public/Documents/General/");
 
 			if (Request.IsAuthenticated && editEnabled) {
 				if(Request.HttpMethod.ToString() == "POST" && Request["moduleID"] == moduleID.ToString()){ //Save the data
@@ -180,7 +183,7 @@ namespace ArenaWeb.WebControls.custom.Luminate
                 throw new ModuleException(CurrentPortalPage, CurrentModule, string.Format("Could not load the HTML from the '{0}' control.", CurrentModule.Title), ex);
             }
         }
-		// this chunk grabs
+
 		private string[] filesInPath(string FilePathSetting, string FilePathDefault){
 			List<string> FileList = new List<string>();
 			string[] fileArray;

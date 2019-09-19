@@ -145,13 +145,8 @@
               }, {
                 id: 'image',
                 label: 'Image',
-                // Select the component once it's dropped
-                select: true,
-                // You can pass components as a JSON instead of a simple HTML string,
-                // in this case we also use a defined component type `image`
+                select: true, // Select the component once it's dropped
                 content: { type: 'image' },
-                // This triggers `active` event on dropped components and the `image`
-                // reacts by opening the AssetManager
                 activate: true,
               }
             ]
@@ -393,11 +388,44 @@
           run: editor => editor.setDevice('Mobile')
         });
         const am = editor.AssetManager;
+        am.addType('flash', {
+            isType(value){
+                if(typeof value == 'object' && value.type == 'flash') return value;
+            }
+        });
+        am.addType('media', {
+            isType(value){
+                if(typeof value == 'object' && value.type == 'media') return value;
+            }
+        });
+        am.addType('document', {
+            isType(value){
+                if(typeof value == 'object' && value.type == 'document') return value;
+            }
+        });
         am.add([
-        <% foreach(string ImageURL in ImageArray){ %>
+        <% foreach(string fileURL in ImageArray){ %>
             {
-                category: 'Immages',
-                src: "<%= ImageURL %>",
+                type: 'image',
+                src: "<%= fileURL %>",
+            },
+        <% } %>
+        <% foreach(string fileURL in FlashArray){ %>
+            {
+                type: 'flash',
+                src: "<%= fileURL %>",
+            },
+        <% } %>
+        <% foreach(string fileURL in MediaAray){ %>
+            {
+                type: 'media',
+                src: "<%= fileURL %>",
+            },
+        <% } %>
+        <% foreach(string fileURL in DocumentArray){ %>
+            {
+                type: 'document',
+                src: "<%= fileURL %>",
             },
         <% } %>
 
