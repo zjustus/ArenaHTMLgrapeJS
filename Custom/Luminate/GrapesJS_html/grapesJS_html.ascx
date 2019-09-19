@@ -290,11 +290,6 @@
               },
 
               AssetManager:{
-                  assets:[
-                  <% foreach(string ImageURL in ImageArray){ %>
-                      "<%= ImageURL %>",
-                  <% } %>
-                  ],
                   //upload: '/upload endpoint', //code for later, this is where the assets upload to
                   //params: {}, //paramaters to pass in the upload
                   upload: 0,
@@ -397,6 +392,16 @@
         editor.Commands.add('set-device-mobile', {
           run: editor => editor.setDevice('Mobile')
         });
+        const am = editor.AssetManager;
+        am.add([
+        <% foreach(string ImageURL in ImageArray){ %>
+            {
+                category: 'Immages',
+                src: "<%= ImageURL %>",
+            },
+        <% } %>
+
+        ]);
 
     </script>
 
