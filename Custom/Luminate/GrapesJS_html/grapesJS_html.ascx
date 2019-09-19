@@ -109,10 +109,10 @@
                 attributes: { class:'gjs-block-section' },
                 content: '<div class="container-fluid" data-gjs-custom-name="Container">'+
                         '<div class="row" data-gjs-custom-name="Row">'+
-                            '<div class="col-6">'+
+                            '<div class="col-6" data-gjs-custom-name="Column">'+
                                 '<p>this is the COlumn</p>'+
                             '</div>'+
-                            '<div class="col-6">'+
+                            '<div class="col-6" data-gjs-custom-name="Column">'+
                                 '<p>this is second Column</p>'+
                             '</div>'+
                         '</div>'+
@@ -241,7 +241,13 @@
               },
               styleManager: {
                 appendTo: '.styles-container',
-                sectors: [{
+                sectors: [
+                {
+                    name: 'Background',
+                    open: false,
+                    buildProps: ['background-color', 'background-image'],
+                },
+                {
                     name: 'Dimension',
                     open: false,
                     // Use built-in properties
@@ -262,7 +268,7 @@
                   },{
                     name: 'Extra',
                     open: false,
-                    buildProps: ['background-color', 'box-shadow', 'custom-prop'],
+                    buildProps: ['box-shadow', 'custom-prop'],
                     properties: [
                       {
                         id: 'custom-prop',
