@@ -6,6 +6,10 @@
     <Arena:KeepAlive ID="keepMeAlive" runat="server" />
     <link rel="stylesheet" href="//unpkg.com/grapesjs/dist/css/grapes.min.css">
     <script src="//unpkg.com/grapesjs"></script>
+    <!-- plugins -->
+    <script src="/Content/HtmlImages/Public/GrapesJSPlugins/ckeditor4/ckeditor.js"></script>
+    <script src="/Content/HtmlImages/Public/GrapesJSPlugins/grapesjs-plugin-ckeditor.min.js"></script>
+
     <style media="screen">
         /* Let's highlight canvas boundaries */
         #gjs {
@@ -83,6 +87,10 @@
     <script type="text/javascript">
         const editor = grapesjs.init({
           container: '#gjs',
+          plugins: ['gjs-plugin-ckeditor'],
+          pluginsOpts: {
+              'gjs-plugin-ckeditor': {}
+          },
           fromElement: true,
           height: '80vh',
           width: 'auto',
