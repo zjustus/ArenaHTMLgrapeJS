@@ -9,7 +9,8 @@
     <!-- plugins -->
     <script src="/Content/HtmlImages/Public/GrapesJSPlugins/ckeditor4/ckeditor.js"></script>
     <script src="/Content/HtmlImages/Public/GrapesJSPlugins/grapesjs-plugin-ckeditor.min.js"></script>
-
+    <script src="/Content/HtmlImages/Public/GrapesJSPlugins/grapesjs-custom-code.min.js"></script>
+    <script src="/Content/HtmlImages/Public/GrapesJSPlugins/grapesjs-blocks-bootstrap4.min.js"></script>
     <style media="screen">
         /* Let's highlight canvas boundaries */
         #gjs {
@@ -87,9 +88,18 @@
     <script type="text/javascript">
         const editor = grapesjs.init({
           container: '#gjs',
-          plugins: ['gjs-plugin-ckeditor'],
+          plugins: ['gjs-plugin-ckeditor','grapesjs-custom-code', 'grapesjs-blocks-bootstrap4'],
           pluginsOpts: {
-              'gjs-plugin-ckeditor': {}
+              'gjs-plugin-ckeditor': {},
+              'grapesjs-custom-code':{},
+              'grapesjs-blocks-bootstrap4': {
+                  blocks: {
+                  },
+                  blockCategories: {
+                  },
+                  labels: {
+                  },
+              },
           },
           fromElement: true,
           height: '80vh',
@@ -98,54 +108,6 @@
           blockManager: {
             appendTo: '#blocks',
             blocks: [
-              {
-                id: 'column1', // id is mandatory
-                label: '<b>1 Column</b>', // You can use HTML/SVG inside labels
-                attributes: { class:'gjs-block-section' },
-                content:'<div class="container-fluid" data-gjs-custom-name="Container">'+
-                        '<div class="row" data-gjs-custom-name="Row">'+
-                            '<div class="col-12" data-gjs-custom-name="Column">'+
-                                '<p>this is the column</p>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'
-                ,
-              },
-              {
-                id: 'column2', // id is mandatory
-                label: '<b>2 Columns</b>', // You can use HTML/SVG inside labels
-                attributes: { class:'gjs-block-section' },
-                content: '<div class="container-fluid" data-gjs-custom-name="Container">'+
-                        '<div class="row" data-gjs-custom-name="Row">'+
-                            '<div class="col-6" data-gjs-custom-name="Column">'+
-                                '<p>this is the COlumn</p>'+
-                            '</div>'+
-                            '<div class="col-6" data-gjs-custom-name="Column">'+
-                                '<p>this is second Column</p>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'
-                ,
-              },
-              {
-                id: 'column3', // id is mandatory
-                label: '<b>3 Columns</b>', // You can use HTML/SVG inside labels
-                attributes: { class:'gjs-block-section' },
-                content: '<div class="container-fluid" data-gjs-custom-name="Container">'+
-                        '<div class="row" data-gjs-custom-name="Row">'+
-                            '<div class="col-4" data-gjs-custom-name="Column">'+
-                                '<p>this is the COlumn</p>'+
-                            '</div>'+
-                            '<div class="col-4" data-gjs-custom-name="Column">'+
-                                '<p>this is second column</p>'+
-                            '</div>'+
-                            '<div class="col-4" data-gjs-custom-name="Column">'+
-                                '<p>this is third column</p>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'
-                ,
-              },
               {
                 id: 'text',
                 label: 'Text',
@@ -303,6 +265,16 @@
                   //params: {}, //paramaters to pass in the upload
                   upload: 0,
               },
+              canvas: {
+                  styles: [
+                    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css'
+                  ],
+                  scripts: [
+                    'https://code.jquery.com/jquery-3.3.1.slim.min.js',
+                    'https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js',
+                    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'
+                  ],
+                },
           storageManager: {
               id: 'gjs-',                   // Prefix identifier that will be used inside storing and loading
               type: 'remote',               // Type of the storage
