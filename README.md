@@ -19,7 +19,7 @@
 <p><a href="https://github.com/artf/grapesjs">GrapesJS Github</a></p>
 <h1>Special Thanks to the Plugins used to make it so amazing</h1>
 <ul>
-    <li>GrapesJS CKEditor</li>
-    <li>GrapesKS Custom code</li>
-    <li><a href="https://github.com/kaoz70/grapesjs-blocks-bootstrap4">GrapesJS Bootstrap4</a></li>
+    <li><a href="https://github.com/artf/grapesjs-plugin-ckeditor/">GrapesJS CKEditor</a></li>
+    <li><a href="https://github.com/artf/grapesjs-custom-code/">GrapesJS Custom code</a></li>
+    <li><a href="https://github.com/kaoz70/grapesjs-blocks-bootstrap4/">GrapesJS Bootstrap4</a></li>
 </ul>
