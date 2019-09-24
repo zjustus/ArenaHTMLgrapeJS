@@ -221,7 +221,7 @@
                     name: 'Dimension',
                     open: false,
                     // Use built-in properties
-                    buildProps: ['width', 'min-height', 'padding'],
+                    buildProps: ['width', 'min-height', 'padding', 'margin'],
                     // Use `properties` to define/override single property
                     properties: [
                       {
