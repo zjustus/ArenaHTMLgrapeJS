@@ -235,6 +235,23 @@
                         min: 0, // Min value, available only for 'integer' types
                       }
                     ]
+                  },
+                  {
+                      name:'Border',
+                      open: false,
+                      buildProps: ['border-radius'],
+                      properties: [
+                        {
+                          // Type of the input,
+                          // options: integer | radio | select | color | slider | file | composite | stack
+                          type: 'integer',
+                          name: 'The width', // Label for the property
+                          property: 'width', // CSS property (if buildProps contains it will be extended)
+                          units: ['px', '%'], // Units, available only for 'integer' types
+                          defaults: 'auto', // Default value
+                          min: 0, // Min value, available only for 'integer' types
+                        }
+                      ]
                   },{
                     name: 'Extra',
                     open: false,
@@ -415,6 +432,53 @@
         <% } %>
 
         ]);
+        const styleManager = editor.StyleManager;
+        styleManager.addProperty('border', {
+            name: 'Border Style',
+            porperty: 'border-style',
+            type: 'select',
+            default: 'hidden',
+            list: [
+                {value: 'solid', name: 'solid'},
+                {value: 'hidden', name: 'hidden'}
+            ],
+        });
+        styleManager.addProperty('border', {
+            name: 'Border Color',
+            porperty: 'border-color',
+            type: 'color',
+        });
+        styleManager.addProperty('border', {
+            name: 'Border Width',
+            porperty: 'border-width',
+            type: 'composite',
+            properties: [
+                {
+                    name: 'Top Border',
+                    type: 'integer',
+                    units: ['px','%','em','rem'],
+                    property: 'border-top-width',
+                },
+                {
+                    name: 'Right Border',
+                    type: 'integer',
+                    units: ['px','%','em','rem'],
+                    property: 'border-right-width',
+                },
+                {
+                    name: 'Bottom Border',
+                    type: 'integer',
+                    units: ['px','%','em','rem'],
+                    property: 'border-bottom-width',
+                },
+                {
+                    name: 'Left Border',
+                    type: 'integer',
+                    units: ['px','%','em','rem'],
+                    property: 'border-left-width',
+                },
+            ],
+        });
 
     </script>
 
